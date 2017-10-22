@@ -1,6 +1,8 @@
 version: 1.0.0.{build}
 image: Visual Studio 2017
-solution: MilliSimFormat.SimpleScore.sln
+build:
+  parallel: true
+  project: MilliSimFormat.SimpleScore.sln
 platform:
   - Any CPU
 configuration:
