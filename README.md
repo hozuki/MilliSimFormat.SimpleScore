@@ -5,7 +5,7 @@
 
 This project creates a score format plugin for [MilliSim](https://github.com/hozuki/MilliSim) (v0.2).
 
-A demostration video is on [BiliBili](https://www.bilibili.com/video/av15612246/). Its score file can be found [here](MilliSimFormat.SimpleScore.ConsoleTest/simple.ss).
+A demonstration video is on [BiliBili](https://www.bilibili.com/video/av15612246/). Its score file can be found [here](MilliSimFormat.SimpleScore.ConsoleTest/simple.ss).
 
 ## License
 
