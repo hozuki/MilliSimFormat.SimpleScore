@@ -6,3 +6,5 @@ _Re[Ss]harper.*
 [Oo]bj
 
 packages
+
+*.csproj.user

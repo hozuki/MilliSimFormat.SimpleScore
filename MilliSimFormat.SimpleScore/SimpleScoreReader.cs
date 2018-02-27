@@ -137,7 +137,9 @@ namespace MilliSimFormat.SimpleScore {
                 var conductor = new Conductor {
                     Measure = measureIndex - 1,
                     Tempo = bpm,
-                    Ticks = (measureIndex - 1) * beatsPerMeasure * NoteBase.TicksPerBeat
+                    Ticks = (measureIndex - 1) * beatsPerMeasure * NoteBase.TicksPerBeat,
+                    SignatureNumerator = beatsPerMeasure,
+                    SignatureDenominator = beatsPerMeasure
                 };
                 conductors.Add(conductor);
             }
