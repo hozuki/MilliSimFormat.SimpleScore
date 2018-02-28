@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using MilliSimFormat.SimpleScore.Internal;
@@ -126,6 +127,9 @@ namespace MilliSimFormat.SimpleScore {
                 ++c;
             }
 
+            // Sort the added notes.
+            notes.Sort((n1, n2) => n1.Ticks.CompareTo(n2.Ticks));
+
             // splitter
             ++c;
 
@@ -144,6 +148,8 @@ namespace MilliSimFormat.SimpleScore {
                 conductors.Add(conductor);
             }
 
+            conductors.Sort((n1, n2) => n1.Ticks.CompareTo(n2.Ticks));
+
             var score = new SourceScore();
             score.Conductors = conductors.ToArray();
             score.Notes = notes.ToArray();
@@ -160,6 +166,17 @@ namespace MilliSimFormat.SimpleScore {
                 note.LeadTime = leadTimeSpan.TotalSeconds;
                 note.Measure = header.Measure - 1;
                 note.Ticks = 60 * (long)(beatsPerMeasure * ((header.Measure - 1) + fraction) * NoteBase.TicksPerBeat);
+                note.TrackIndex = (int)note.StartX;
+
+                if (note.TrackIndex < 0 || note.TrackIndex >= trackCount) {
+                    Debug.Print("Warning: Invalid track index \"{0}\", changing into range [0, {1}].", note.TrackIndex, trackCount - 1);
+
+                    if (note.TrackIndex < 0) {
+                        note.TrackIndex = 0;
+                    } else if (note.TrackIndex >= trackCount) {
+                        note.TrackIndex = trackCount - 1;
+                    }
+                }
             }
 
             NoteSize StrToSize(string str) {
