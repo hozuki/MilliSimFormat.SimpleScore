@@ -203,7 +203,7 @@ string m_Name = ""shtstr_fumen_sobj""";
             writer.WriteLine("			float speed = " + sourceNote.Speed.ToString(CultureInfo.InvariantCulture));
 
             if (sourceNote.FollowingNotes != null && sourceNote.FollowingNotes.Length > 0) {
-                var duration = (sourceNote.FollowingNotes[sourceNote.FollowingNotes.Length - 1].Ticks - sourceNote.Ticks) / (NoteBase.TicksPerBeat / 8);
+                var duration = (int)((sourceNote.FollowingNotes[sourceNote.FollowingNotes.Length - 1].Ticks - sourceNote.Ticks) / (NoteBase.TicksPerBeat / 8));
                 writer.WriteLine("			int duration = " + duration.ToString());
             } else {
                 writer.WriteLine("			int duration = 0");
@@ -217,7 +217,17 @@ string m_Name = ""shtstr_fumen_sobj""";
                 writer.WriteLine("			int endType = 0");
             }
 
-            writer.WriteLine("			double leadTime = " + sourceNote.LeadTime.ToString(CultureInfo.InvariantCulture));
+            if (sourceNote.Type < 0) {
+                writer.WriteLine("			double leadTime = 0");
+            } else {
+                // TODO: What is this "magic number"?
+                const double someConstant = 198.3471011848414;
+                var bpm = GetCurrentBpm(sourceNote.Ticks, sourceScore.Conductors);
+                var leadTime = someConstant / bpm;
+                // TODO: Another guess... Didn't look too carefully inside speed variated notes.
+                leadTime /= sourceNote.Speed;
+                writer.WriteLine("			double leadTime = " + leadTime.ToString(CultureInfo.InvariantCulture));
+            }
         }
 
         private static void WriteConductor([NotNull] this TextWriter writer, [NotNull] SourceScore sourceScore, int index) {
@@ -460,6 +470,20 @@ vector judgeRange
                     }
                 }
             }
+        }
+
+        private static double GetCurrentBpm(long currentTicks, [NotNull, ItemNotNull] Conductor[] conductors) {
+            Conductor con = conductors[0];
+
+            for (var i = 1; i < conductors.Length; ++i) {
+                if (conductors[i].Ticks > currentTicks) {
+                    break;
+                }
+
+                con = conductors[i];
+            }
+
+            return con.Tempo;
         }
 
         private const string HelpText = "Export <source ss> [<output txt>]";
