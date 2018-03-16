@@ -1,5 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
+using MilliSimFormat.SimpleScore.ToExportedScrobj.Models;
 using OpenMLTD.MilliSim.Core.Entities;
 using OpenMLTD.MilliSim.Core.Entities.Source;
 

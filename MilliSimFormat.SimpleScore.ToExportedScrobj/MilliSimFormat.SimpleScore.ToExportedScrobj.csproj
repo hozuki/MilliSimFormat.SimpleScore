@@ -34,6 +34,9 @@
     <Reference Include="JetBrains.Annotations, Version=11.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Annotations.11.0.0\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>
+    <Reference Include="NClone, Version=1.1.0.0, Culture=neutral, PublicKeyToken=81c60607627cc572, processorArchitecture=MSIL">
+      <HintPath>..\packages\NClone.1.1.1\lib\net45\NClone.dll</HintPath>
+    </Reference>
     <Reference Include="OpenMLTD.MilliSim.Core, Version=0.2.3.99, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenMLTD.MilliSim.Core.0.2.3\lib\net45\OpenMLTD.MilliSim.Core.dll</HintPath>
     </Reference>
@@ -54,10 +57,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MltdHelper.cs" />
-    <Compile Include="MltdNoteType.cs" />
+    <Compile Include="Models\EventConductorData.cs" />
+    <Compile Include="Models\EventNoteData.cs" />
+    <Compile Include="Models\MltdNoteType.cs" />
+    <Compile Include="Models\ColorRGBA.cs" />
+    <Compile Include="Models\EventScenarioData.cs" />
+    <Compile Include="Models\NoteScrObj.cs" />
+    <Compile Include="Models\PolyPoint.cs" />
+    <Compile Include="Models\ScenarioScrObj.cs" />
+    <Compile Include="Models\TexTargetName.cs" />
+    <Compile Include="Models\Vector4.cs" />
+    <Compile Include="Models\VjParam.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TrackType.cs" />
+    <Compile Include="Models\ScenarioNoteType.cs" />
+    <Compile Include="ScorePreprocessor.cs" />
+    <Compile Include="Models\TrackType.cs" />
+    <Compile Include="ScrObjLoader.cs" />
+    <Compile Include="WriteScenario.cs" />
+    <Compile Include="WriteScore.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -68,6 +86,11 @@
       <Project>{ddf263a8-668d-478f-af51-e597316e1b40}</Project>
       <Name>MilliSimFormat.SimpleScore</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Templates\blsymp_scenario_sobj_shtstr.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
